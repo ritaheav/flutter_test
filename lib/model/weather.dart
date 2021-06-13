@@ -8,17 +8,14 @@ class Weather {
   int clouds;
   int pressure;
   int humidity;
-
   String description;
   String iconCode;
   String main;
   String cityName;
-
   double windSpeed;
-
   double temperature;
-
   List<Weather> forecast;
+  String dt_txt;
 
   Weather(
       {this.id,
@@ -32,7 +29,8 @@ class Weather {
         this.cityName,
         this.windSpeed,
         this.temperature,
-        this.forecast});
+        this.forecast,
+        this.dt_txt});
 
   static Weather fromJson(Map<String, dynamic> json) {
     final weather = json['weather'][0];
@@ -48,6 +46,7 @@ class Weather {
       pressure: json['main']['pressure'],
       humidity: json['main']['humidity'],
       windSpeed: intToDouble(json['wind']['speed']),
+      dt_txt: json['dt_txt'],
     );
   }
 
@@ -59,7 +58,9 @@ class Weather {
           temperature: intToDouble(
             item['main']['temp'],
           ),
-          iconCode: item['weather'][0]['icon']
+          description: item['weather'][0]['description'],
+          iconCode: item['weather'][0]['icon'],
+          dt_txt: item['dt_txt']
       ));
     }
     return weathers;
