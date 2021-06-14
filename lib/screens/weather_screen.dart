@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_weather_test/bloc/bloc.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_weather_test/widgets/forecast_widget.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:intl/intl.dart';
 import 'package:permission_handler/permission_handler.dart';
+import 'package:flutter_weather_test/widgets/weather_widget.dart';
 
 class WeatherScreen extends StatefulWidget {
   @override
@@ -44,7 +44,7 @@ class _WeatherScreenState extends State<WeatherScreen>
 
     return Scaffold(
         appBar: AppBar(
-          backgroundColor: Colors.yellow[50],
+          backgroundColor: Colors.white,
           elevation: 0,
           title: Column(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -55,7 +55,7 @@ class _WeatherScreenState extends State<WeatherScreen>
                   color: Colors.black,
                   fontSize: 14,
                 ),
-              )
+              ),
             ],
           ),
         ),
@@ -63,7 +63,7 @@ class _WeatherScreenState extends State<WeatherScreen>
         body: Material(
           child: Container(
             constraints: BoxConstraints.expand(),
-            decoration: BoxDecoration(color: Colors.yellow[50]),
+            decoration: BoxDecoration(color: Colors.white),
             child: FadeTransition(
               opacity: _fadeAnimation,
               child: BlocBuilder<WeatherBloc, WeatherState>(
@@ -73,7 +73,8 @@ class _WeatherScreenState extends State<WeatherScreen>
 
                     if (weatherState is WeatherLoaded) {
                       this._cityName = weatherState.weather.cityName;
-                      return ForecastHorizontal(weathers: weatherState.weather.forecast
+                      return WeatherWidget(
+                        weather: weatherState.weather,
                       );
                     } else if (weatherState is WeatherError ||
                         weatherState is WeatherEmpty) {

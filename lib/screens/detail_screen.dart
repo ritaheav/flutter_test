@@ -16,16 +16,50 @@ class DetailScreen extends StatelessWidget {
     return BlocBuilder<WeatherBloc, WeatherState>(
       builder: (context, state) {
         return Scaffold(
+          appBar: AppBar(
+            centerTitle: true,
+            backgroundColor: Colors.white,
+            elevation: 0,
+            title: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                Text(
+                  DateFormat('EEEE, d MMMM yyyy').format(
+                      DateTime.fromMillisecondsSinceEpoch(item.time * 1000)
+                  ),
+                  style: TextStyle(
+                    color: Colors.black,
+                    fontSize: 20,
+                  ),
+                ),
+              ],
+            ),
+          ),
           body: Padding(
-              padding: EdgeInsets.all(16.0),
+              padding: const EdgeInsets.only(
+                left: 10,
+                right: 10,
+                top: 15,
+              ),
               child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
+                // mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
                   Icon(
                     item.getIconData(),
                     size: 70,
                     color: Colors.yellow,
                   ),
+                  SizedBox(
+                    height: 20,
+                  ),
+                  item.cityName != null ? Text(
+                    item.cityName,
+                    style: TextStyle(
+                      fontSize: 25,
+                      letterSpacing: 5,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ) : Container(),
                   SizedBox(
                     height: 20,
                   ),
