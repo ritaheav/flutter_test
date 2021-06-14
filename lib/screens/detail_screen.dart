@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_weather_test/model/weather.dart';
 import 'package:flutter_weather_test/utils/weather_icon.dart';
 import 'package:intl/intl.dart';
+import 'package:share/share.dart';
 
 class DetailScreen extends StatelessWidget {
 
@@ -39,7 +40,7 @@ class DetailScreen extends StatelessWidget {
               padding: const EdgeInsets.only(
                 left: 10,
                 right: 10,
-                top: 15,
+                top: 10,
               ),
               child: Column(
                 // mainAxisAlignment: MainAxisAlignment.center,
@@ -186,6 +187,27 @@ class DetailScreen extends StatelessWidget {
                             ]
                         )
                       ]
+                  ),
+                  SizedBox(height: 20),
+                  ElevatedButton(
+                    onPressed: () {
+                      String text = 'date: ${DateFormat('EEEE, d MMMM yyyy').format(
+                          DateTime.fromMillisecondsSinceEpoch(item.time * 1000))}; time: ${DateFormat.Hm().format(
+                          DateTime.fromMillisecondsSinceEpoch(item.time * 1000))}; temperature: ${
+                          (item.temperature - 273.15).floor()}°; description: ${
+                          item.description}; humidity:${item.humidity}%; visibility: ${
+                          item.visibility/1000} km; pressure: ${item.pressure} hPa; windSpeed: ${
+                          item.windSpeed} km/h; clouds: ${item.clouds} %';
+                      Share.share(text);
+                    },
+                    child: Text('Share', style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 18,
+                      )
+                    ),
+                    style: ButtonStyle(
+                      backgroundColor: MaterialStateProperty.all<Color>(Color.fromRGBO(32, 195, 175, 1)),
+                    ),
                   )
                 ],
               )
