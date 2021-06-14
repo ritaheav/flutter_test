@@ -33,5 +33,12 @@ class WeatherIcons {
   static const IconData mist_day = const _IconData(0xf003);
   static const IconData mist_night = const _IconData(0xf04a);
 
+  static const IconData humidity = const _IconData(0xf07a);
+  static const IconData visibility = const _IconData(0xf054);
+
+  static const IconData pressure = const _IconData(0xf03c);
+  static const IconData wind = const _IconData(0xf050);
+
+  static const IconData cloud = const _IconData(0xf041);
 
 }

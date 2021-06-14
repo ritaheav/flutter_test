@@ -16,6 +16,7 @@ class Weather {
   double temperature;
   List<Weather> forecast;
   String dt_txt;
+  double visibility;
 
   Weather(
       {this.id,
@@ -30,7 +31,8 @@ class Weather {
         this.windSpeed,
         this.temperature,
         this.forecast,
-        this.dt_txt});
+        this.dt_txt,
+        this.visibility});
 
   static Weather fromJson(Map<String, dynamic> json) {
     final weather = json['weather'][0];
@@ -47,20 +49,27 @@ class Weather {
       humidity: json['main']['humidity'],
       windSpeed: intToDouble(json['wind']['speed']),
       dt_txt: json['dt_txt'],
+      visibility: intToDouble(json['visibility']),
     );
   }
 
   static List<Weather> fromForecastJson(Map<String, dynamic> json) {
     final weathers = List<Weather>();
     for (final item in json['list']) {
+      print(json['list']);
       weathers.add(Weather(
-          time: item['dt'],
-          temperature: intToDouble(
-            item['main']['temp'],
-          ),
-          description: item['weather'][0]['description'],
-          iconCode: item['weather'][0]['icon'],
-          dt_txt: item['dt_txt']
+        time: item['dt'],
+        temperature: intToDouble(
+          item['main']['temp'],
+        ),
+        description: item['weather'][0]['description'],
+        iconCode: item['weather'][0]['icon'],
+        dt_txt: item['dt_txt'],
+        clouds: item['clouds']['all'],
+        pressure: item['main']['pressure'],
+        humidity: item['main']['humidity'],
+        windSpeed: intToDouble(item['wind']['speed']),
+        visibility: intToDouble(item['visibility']),
       ));
     }
     return weathers;
